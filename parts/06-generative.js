@@ -126,9 +126,9 @@ S_('elbo','genm','The ELBO: a lower bound we can raise',{builds:4,from:[24,'#elb
   at(2,eq(R`\begin{aligned}\dcol{\ln p(\mathcal D)}&=\qcol{\ELBO(q)}+\lcol{\KL\big(q\,\|\,p(\theta\mid\mathcal D)\big)}\\\dcol{${tn(EV)}}&=\qcol{${tn(Q0.elbo)}}+\lcol{${tn(Q0.gap)}}\end{aligned}`)),
   at(3,eq(R`\begin{aligned}\qcol{\ELBO(q)}&=\E_q\big[\ln p(\mathcal D\mid\theta)\big]-\KL\big(q\,\|\,p(\theta)\big)\\&=${tn(Q0.fit)}-${tn(Q0.kl_prior)}\end{aligned}`)),
   answer(4,`At ${qName(QP)} the gap is ${num(QP.gap)}: the ELBO reaches ln p(𝒟), so this q is the posterior.`)),'1.02fr 1fr'),
- lines:[`Lecture 24’s coin: a Beta(${CO.prior.join(', ')}) prior, then ${CO.heads} heads in ${CO.tosses} tosses. For a coin the evidence can be computed, so we can check VI against it.`,
+ lines:[`Lecture 24’s coin: a Beta(${CO.prior.join(', ')}) prior, then ${CO.heads} heads in ${CO.tosses} tosses. For a coin we can compute the evidence and check VI against it.`,
   `Pick any q, here ${qName(Q0)}. The evidence splits into the ELBO, which we can compute, and the KL to the posterior, which we cannot.`,
-  'The ELBO needs only q, the likelihood and the prior: fit the data, and stay near the prior.',
+  'The ELBO needs only q, the likelihood and the prior: q fits the data and stays near the prior.',
   'Drag q. The total never changes, so whatever the ELBO gains, the KL loses. Where does the gap close?'],
  ask:['For a network, why can we not compute this number?','Why is the ELBO always below ln p(𝒟)?','Which term pulls q towards the data, and which holds it back?','What makes the gap exactly zero?'],
  expected:[`The integral runs over every θ. Lecture 23 put a grid of points on each of the ${word(BN.n_weights)} weights of its tiny network and found it would take hours; a real network has millions of weights.`,
@@ -136,9 +136,9 @@ S_('elbo','genm','The ELBO: a lower bound we can raise',{builds:4,from:[24,'#elb
   `The first term rewards q for putting its mass where the data are likely; the KL to the prior charges it for moving away from Beta(${CO.prior.join(', ')}).`,
   `q equal to the posterior, ${qName(QP)}: there the KL is 0. The fit is ${num(QP.fit)} and the KL to the prior ${num(QP.kl_prior)}, which add up to ln p(𝒟).`],
  point:'ln p(𝒟) = ELBO + KL(q ‖ posterior) is a fixed total, so raising the ELBO, which we can compute, lowers the KL, which we cannot.',
- misconception:'That the ELBO is maximised by fitting the data alone. A spike at the best r fits better but pays a larger KL to the prior; on the coin its ELBO is lower than the posterior’s.',
+ misconception:'That the ELBO is maximised by fitting the data alone. A spike at the best θ fits better but pays a larger KL to the prior; on the coin its ELBO is lower than the posterior’s.',
  demo:`At click 4, drag slowly from the left: the purple curve slides onto the teal one, and the red gap shrinks to 0 at ${qName(QP)}, then opens again past it.`,
- transition:'To raise the ELBO by gradient steps we need its gradient, and it is an average over samples of q.',source:SRC_KL});
+ transition:'To raise the ELBO by gradient steps we need its gradient, but the ELBO is an average over samples of q.',source:SRC_KL});
 
 // ---------------------------------------------------------------------------------------- 6.3 the reparameterisation trick
 chap('6.3','Update: gradients through a sample');
@@ -165,14 +165,14 @@ S_('reparam','genm','Gradients through a sample: θ = μ + σε',{builds:3,from:
   at(3,`<div class="code-sm">${code('theta = q.rsample()   # one word changed')}</div>`)),'1fr 1.05fr'),
  lines:['Lecture 24 fitted q by drawing θ from it and averaging the loss. The code ran, and q did not move. Where does the gradient stop?',
   'Move the randomness into ε, a fixed input with no parameters. Then θ = μ + σε is ordinary arithmetic, and backprop goes through it.',
-  `Put in one draw. With rsample() the same fit ends at 𝒩(${num(RP.mix.rsample.mu)}, ${num(RP.mix.rsample.sigma)}²), KL ${num(RP.mix.rsample.kl,3)}.`],
+  `Here is one draw. With rsample() the same fit ends at 𝒩(${num(RP.mix.rsample.mu)}, ${num(RP.mix.rsample.sigma)}²), KL ${num(RP.mix.rsample.kl,3)}.`],
  ask:['Which arrow in the top graph has no derivative?','Is θ still random?','What is the gradient of θ with respect to σ, in words?'],
  expected:['The one into the draw. “Sample from 𝒩(μ, σ²)” is not a function of μ and σ that autograd can differentiate, so nothing flows back to them.',
   'Yes, with exactly the same distribution. Only the place where the randomness enters has moved: into ε, which needs no gradient.',
   `The noise itself: with ε = ${num(RP.eps)}, θ moves by ${num(RP.dsigma)} for each unit of σ. Each sample gives its own gradient, and their average estimates the true one.`],
  point:'Writing θ = μ + σε moves the randomness into an input, so the gradient of the loss reaches μ and σ; in PyTorch that is rsample().',
  misconception:'That q.sample() raises an error when used in a loss. It runs without complaint; the parameters simply get no gradient.',
- transition:'Now the tiny network of Lecture 23, fitted by this trick.',source:SRC_KL});
+ transition:'Next we fit the tiny network of Lecture 23 with this trick.',source:SRC_KL});
 
 // ---------------------------------------------------------------------------------------- 6.4 the Bayesian network
 chap('6.4','At test time: uncertainty');
@@ -218,10 +218,10 @@ const aeFig=label(0,24,'autoencoder',{size:21,fill:MUTED,weight:650})+
 S_('ae-vae','genm','An autoencoder, and the VAE that grows out of it',{builds:3,from:[25,'#ae-loss/3'],
  body:pfig(1152,VAY+IM+4,aeFig,`Our 3 through the autoencoder, ${A.join(' to ')} and back, and through the VAE, whose encoder returns a mean and a width`),
  lines:[`Lecture 25’s autoencoder on MNIST test digit #${V.index}, our ${V.label}: ${A[0]} pixels squeezed into ${word(A[2])} numbers and rebuilt. What does its loss compare?`,
-  `The loss is the squared error between the image and its rebuild, summed over all ${A[0]} pixels. Random codes still decode to junk: nothing decided where codes live.`,
+  `The loss is the squared error between the image and its rebuild, summed over all ${A[0]} pixels. Random codes still decode to junk: nothing says where codes should go.`,
   'The VAE’s encoder returns a small cloud: a mean and a width for each code number. In training, the decoder gets a draw z = μ + σε.'],
  ask:['What are the input and the target of an autoencoder?','Why can this autoencoder not generate new digits?','Why give each image a cloud of codes rather than one point?'],
- expected:['The same image: x goes in and x is the target. No labels anywhere.',
+ expected:['The same image: x goes in and x is the target. There are no labels.',
   'Nothing in its loss says where the codes should be. Its codes for real digits sit far from where 𝒩(0, I) draws land, and the decoder was never trained there.',
   'So that the decoder learns to draw something sensible everywhere near a code, not only at one point. With a penalty that holds the clouds near 𝒩(0, I), random codes then decode to digits.'],
  point:'The VAE keeps the autoencoder’s shape but makes the code a sampled draw from a cloud that the encoder predicts.',
@@ -268,7 +268,7 @@ S_('vae-loss','genm','The VAE’s loss: reconstruction plus KL',{builds:5,from:[
     at(3,`<div class="p6-tile">${small('KL term, our 3')}${m(R`\KL=${tn(V.kl)}`)}</div>`)}${
     at(4,`<div class="p6-tile">${small('the budget, our 3')}${m(R`\qcol{\ELBO}=${tn(V.fit)}-${tn(V.kl)}=\qcol{${tn(V.elbo)}}`)}${m(R`\dcol{\ln p(x)}=\dcol{${tn(V.log_px)}},\ \text{gap }\lcol{${tn(V.gap)}}`)}</div>`)}</div>`))}${
    only(5,widget('p6-beta',betaAlt))}</div>`),
- lines:['Lecture 25’s loss in its own four lines. The model returns the rebuilt image and the encoder’s cloud, its mean and log-variance.',
+ lines:['Lecture 25’s loss is four lines of code. The model returns the rebuilt image and the encoder’s cloud, its mean and log-variance.',
   `Gaussian pixels with σ = ${S2} turn the log-likelihood into squared error times ${num(V.weight,1)}, plus a constant. Here is that term for our 3.`,
   'The KL to 𝒩(0, I) has a closed form for two Gaussians. It pulls every image’s cloud towards the prior.',
   'Together they are minus 6.2’s ELBO, for one image. It sits just below ln p(x); the gap is the KL to the true posterior.',
@@ -282,7 +282,7 @@ S_('vae-loss','genm','The VAE’s loss: reconstruction plus KL',{builds:5,from:[
  point:'The VAE is trained on minus the ELBO for each image: a reconstruction term from Gaussian pixels plus the KL of the encoder’s q to 𝒩(0, I).',
  misconception:'That the KL term is a regulariser bolted on by hand. It falls out of the ELBO of 6.2, with the code z in the place of the weights θ.',
  demo:'At click 5, start at β = 1, then click 0 and 256: watch the codes spread off the square, then collapse onto the centre. Keep 256 for the check that follows.',
- transition:'One question on the two ends of that sweep.',source:SRC_VAE});
+ transition:'We end with a question on the two ends of that sweep.',source:SRC_VAE});
 
 // ---------------------------------------------------------------------------------------- check
 chap();
@@ -292,7 +292,7 @@ S_('check-6','genm','Check: the two ends of the β sweep',{builds:2,from:[25,'#s
  body:stack(`<p class="p6-q">With β = ${+B2} the KL term is ${num(BE.kl[B2])} nats per image. What do the generated digits look like, and why?</p>`,
   cols(stack(small(`β = ${+B1}: KL ${num(BE.kl[B1])} per image`),stripFig(B1,`Eight digits decoded from random codes, beta = ${+B1}`)),
    at(2,stack(small(`β = ${+B2}: KL ${num(BE.kl[B2])} per image`),stripFig(B2,`Eight decoded samples at beta = ${+B2}, all the same blur`))),'1fr 1fr'),
-  answer(2,`All the same blur, the average digit. A KL of 0 means q(z | x) = 𝒩(0, I) for every image: the code says nothing about x, so the decoder draws the mean.`)),
+  answer(2,`All show one blur, the average digit. A KL of 0 means q(z | x) = 𝒩(0, I) for every image: the code says nothing about x, so the decoder draws the mean.`)),
  lines:['Answer in pairs before the click. You need two ideas from this part: when a KL is zero, and what the decoder can learn from a code.',
   `Rebuilds fail too: squared error rises from ${num(BE.sse[B1])} at β = ${+B1} to ${num(BE.sse[B2])} at β = ${+B2}.`],
  ask:[`With β = ${+B2} the KL is ${num(BE.kl[B2])}. What do the samples look like, and why?`,'Is this a failure of training?'],

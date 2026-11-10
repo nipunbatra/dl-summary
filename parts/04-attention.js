@@ -44,7 +44,7 @@ const spaced=s=>[...s].join(' ');                                        // "aab
 // ---------------------------------------------------------------------------------------- the break
 partBreak(4,'Predicting the next token',
  'This part kept one task, predicting the next token, and changed how the model gathers the context it predicts from.',
- ['Text becomes tokens; each position predicts the next one.','Self-attention: each token mixes the values of the others.',
+ ['Text becomes tokens; each position predicts the next one.','Self-attention: each token mixes the values of the tokens before it.',
   'Mask the future, add heads, stack blocks.','Generate one token at a time.'],
  {line:'By the end you can say how a token reads the others, and why training hides the future.',
   ask:'In Lecture 11, what did the name model see, and what did it output?',
@@ -140,17 +140,17 @@ S_('attn-bank','attn','One word, two sentences',{builds:3,from:[12,'#s10-frame-s
  body:only([1],`<div class="p4-sents">${BKEYS.map(k=>`<div><b>Sentence ${k}</b><span>${sentHTML(k)}</span></div>`).join('')}</div>`+
    `<div class="p4-upd p4-row">${table(['lookup row',...MD.axes],[[m(R`E_{\text{tok}}[\text{bank}]`),...MD.bank_row.map(v=>num(v))]])}</div>`)+
   only([2,3],widget('p4-bank',bankAlt))+
-  answer(3,`Bank's message mixes the values of the words it reads: ${m(R`m_${A_.receiver+1}=\sum_{j\le ${A_.receiver+1}}\alpha_{${A_.receiver+1}j}\,v_j`)}. Same lookup row, two mixtures.`),
+  answer(3,`Bank's message mixes the values of the words it reads: ${m(R`m_${A_.receiver+1}=\sum_{j\le ${A_.receiver+1}}\alpha_{${A_.receiver+1}j}\,v_j`)}. One lookup row gives two mixtures.`),
  lines:[`Both sentences give bank the same lookup row. How can the model tell a river bank from a bank that takes cheques?`,
   `Bank's query is matched with every key up to itself. In A, ${A_.first[0]} gets ${num(A_.first[1])} and ${A_.second[0]} ${num(A_.second[1])}. Switch to B.`,
-  `So bank's new row moves toward water in A and toward money in B. Lecture 12 chose the matrices by hand to show this.`],
+  `Bank's new row moves toward water in A and toward money in B. Lecture 12 chose the matrices by hand to show this.`],
  ask:['What does an embedding table return for bank in the two sentences?',`In B, which two words does bank read most?`,'Where do the query, key and value of a word come from?'],
  expected:['The same row both times: a lookup cannot see the sentence.',`${B_.first[0]} (${num(B_.first[1])}) and ${B_.second[0]} (${num(B_.second[1])}).`,
   `From the word's own row times three learned matrices, W_Q, W_K and W_V, the same for every position (Lecture 13).`],
- point:'Attention gives each token a weighted average of the others, with weights computed from the content of the sentence.',
+ point:'Attention gives each token a weighted average of the tokens before it, with weights computed from the content of the sentence.',
  misconception:'That attention weights are learned parameters. The matrices W_Q, W_K and W_V are learned; the weights are computed afresh for every sentence.',
  demo:'Click B, then A again. The words change under the bars, and the tallest bar moves to the word that tells the two banks apart.',
- transition:'Now the whole layer, for every token at once, in the lecture\'s own code.',source:SRC12});
+ transition:'Next we write the whole layer, for every token at once, in the lecture\'s code.',source:SRC12});
 
 // ---------------------------------------------------------------------------------------- 4.3 the equation
 chap('4.3','Model: one attention layer');
@@ -176,7 +176,7 @@ S_('attn-eq','attn','One attention layer, a piece per click',{builds:5,from:[14,
  lines:['Stack the token rows into E. One product scores every query against every key.',
   `Divide by √d<sub>k</sub>. Unscaled, the weaker key gets ${mant} × 10<sup>${+expo}</sup>; scaled, it gets ${num(SC.w_scaled[0])}. The order is kept.`,
   `The mask adds −∞ wherever j > i, so those weights come out exactly 0 and the rest still sum to 1.`,
-  `The softmax makes each row weights that sum to 1. They mix the values into a message m<sub>i</sub> of ${word(MD.d_v)} numbers.`,
+  `Softmax turns each row into weights that sum to 1. They mix the values into a message m<sub>i</sub> of ${word(MD.d_v)} numbers.`,
   `W<sub>O</sub> turns the message into an update of width ${MD.d_model}, and the residual adds it. Bank's ${AX4[iWater]} coordinate goes from ${num(A_.e[iWater])} to ${num(A_.e_new[iWater])}.`],
  ask:['What is the shape of S for a sentence of T tokens?','Does the scaling change which key wins?','Why add −∞ before the softmax, not zero the weights after it?',
   'What does each row of A add up to?','Why add the update to e instead of replacing e?'],
@@ -208,7 +208,7 @@ const [MLP,H1,H4]=TS.models;
 S_('attn-ppl','attn','Perplexity on stories the models never saw',{builds:2,from:fromPage(14,'part3','#s05-cap-scores'),
  body:stack(eq(R`\text{perplexity}=\exp\big(\text{mean of }\lcol{-\ln p(\text{true next token})}\big)`),pplFig),
  lines:[`If every true next token got probability ${num(TS.quarter.p)}, the perplexity would be ${num(TS.quarter.ppl,0)}: as unsure as a choice among ${word(TS.quarter.ppl)}. Which model scores lowest?`,
-  `Four heads: ${num(H4.ppl)}, with ${big(H4.params)} parameters against the MLP's ${big(MLP.params)}. Attention reads further for fewer weights.`],
+  `Four heads: ${num(H4.ppl)}, with ${big(H4.params)} parameters against the MLP's ${big(MLP.params)}. Attention reads further with fewer weights.`],
  ask:['The MLP has the most parameters. Should it win?',`Why do one head and four heads have the same parameter count?`],
  expected:[`No. Its window concatenates the last tokens, so its first layer grows with the window, and it still sees less context. Attention shares its weights across positions.`,
   `Four heads of width ${TS.head_width} split the same ${TS.d_model} columns of W_Q, W_K and W_V that one head of width ${TS.d_model} uses. Each head gets its own softmax, so they can read different words: perplexity falls by ${num(TS.gain_four_vs_one,1)}%.`],
@@ -244,7 +244,7 @@ S_('families','attn','One block, three families',{builds:3,from:[15,'#model-fami
  expected:['Decoder-only and encoder-decoder generate; the encoder sees the whole input, so it labels instead.',
   'Every position already reads the next word, so predicting it would be copying (this is the mask question of the next slide).',
   'Encoder-decoder: the English is read in full by the encoder, and each Hindi step looks it up again by cross-attention. A decoder-only model can also translate if the English is put first in the prompt.'],
- point:'Decoder-only, encoder and encoder-decoder differ in who may attend to whom and what the loss reads, not in the attention block itself.',
+ point:'Decoder-only, encoder and encoder-decoder use the same attention block. They differ in who may attend to whom and in what the loss reads.',
  transition:'One question on the mask before we close the part.',
  source:'The sentence and its Hindi translation are Lecture 15’s running example (data/p4.json).'});
 

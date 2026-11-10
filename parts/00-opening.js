@@ -49,7 +49,7 @@ S_('ten-models','map',`${Word(MODELS.length)} models, built in ${word(course.cou
  ask:['What do these models have in common?','Squared error does not look like a negative log probability. Where does it fit?'],
  expected:['They are all neural networks trained by gradient descent on a loss. Push for the sharper answer: every loss here is a negative log probability.',
   'Squared error is the negative log likelihood of a Gaussian with a fixed variance (Lectures 1 and 2), so it is the same loss with a different output distribution.'],
- point:'What a model returns changes from lecture to lecture; how it is trained does not.',
+ point:'What a model returns changes from lecture to lecture. The way we train it stays the same.',
  misconception:'That each new architecture came with a new learning algorithm. Only the pieces plugged into the recipe changed.',
  transition:'Here is the recipe, one step per click.'});
 
@@ -84,7 +84,7 @@ S_('recipe','map','The recipe, on one example',{builds:6,
   'The target, the loss and the update. At test time nobody tells the network the answer.'],
  point:'Data, model, output, loss and update form a loop; at test time only the first three run.',
  misconception:'That the loss is used at test time. It only exists where we have the right answer.',
- transition:'One step barely moved the loss. What happens when the step is repeated?',source:SOURCE});
+ transition:'One step barely moved the loss. What happens when we repeat it?',source:SOURCE});
 
 // ---------------------------------------------------------------------------------------- the recipe, repeated
 const YMAX=.8,LW=1152,LH=250,ETA_COL={[ETAS[0]]:COL.data,[ETAS[1]]:COL.guess,[ETAS[2]]:COL.amber};
@@ -126,8 +126,8 @@ S_('recipe-loop','map','The recipe, repeated',{builds:2,
  ask:[`Before dragging: the four predictions start at ${L.probs[ETA0][0].map(v=>num(v)).join(', ')}. Which of them are already on the right side of 0.5?`,
   `Why does the large step end at exactly ${num(L.ln2)}?`],
  expected:['All four are, but none is confident: the hand-built network of Lecture 4 separates XOR, and training makes it surer.',
-  `${num(L.ln2)} is ln 2, the loss of a network that says 0.5 for every input. After step ${L.h2_off_from[big3]} the second ReLU unit outputs 0 on all four inputs and gets no gradient again. One unit cannot draw XOR, so the best the network can do is say 0.5 everywhere.`],
- point:'Repeating one small step is all that training is, and the step size can make or break it.',
+  `${num(L.ln2)} is ln 2, the loss of a network that says 0.5 for every input. After step ${L.h2_off_from[big3]} the second ReLU unit outputs 0 on all four inputs and never gets a gradient again. One unit cannot draw XOR, so the best the network can do is say 0.5 everywhere.`],
+ point:'Training is one small step repeated many times, and the step size decides whether it works.',
  misconception:`That a larger step only gets there faster. Here it switches a unit off for good on step ${L.h2_off_from[big3]}.`,
  demo:`Set η = ${+ETA0} and drag slowly from 0: the loss on step 1 is ${num(L.loss[ETA0][1],3)}, a little above the start (${num(L.loss[ETA0][0],3)}), before it falls. Keep that for the question at the end of Part 2.`,
  transition:'Six lines of PyTorch run this loop for every model in the course.',source:SOURCE});
@@ -153,11 +153,11 @@ S_('recipe-card','map','The recipe as a card, and as code',{builds:6,
   'Inside the optimizer, set when it was created: opt = torch.optim.SGD(model.parameters(), lr=0.1).'],
  point:'The six rows of the card are the six things to ask about any model.',
  misconception:'That this loop is specific to classifiers. Only the model and the loss line change for the other models.',
- transition:'With the card in hand, here is the route through the course.'});
+ transition:'Next, the route we take through the course today.'});
 
 // ---------------------------------------------------------------------------------------- the route
 const ROUTE=[['Foundations','the loss, read off a likelihood'],['Gradients and optimization','how the update is computed'],
- ['Generalization','how the fit does on new data'],['Attention and language','a model for sequences of tokens'],
+ ['Generalization','how the model does on new data'],['Attention and language','a model for sequences of tokens'],
  ['Vision and language','images as tokens, captions as labels'],['Generative modelling','distributions over weights and codes'],
  ['Object detection','the output becomes a list of boxes']];
 if(ROUTE.length!==course.modules.length)throw new Error('The route needs one row per module');
@@ -167,5 +167,5 @@ S_('route','map','The route for today',{builds:1,
  lines:['Each part changed some rows of the card. We take the parts in order and ask of each: which rows, and how?'],
  ask:['Which part changed the Update row?'],
  expected:['Part 2. It is the only part that changes nothing else: backprop and the optimizers work the same for every model that follows.'],
- point:'Seven parts, each read as a change to the same six rows.',
+ point:'We read each of the seven parts as a change to the same six rows.',
  transition:'Part 1: where the loss comes from.'});

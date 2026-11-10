@@ -143,7 +143,7 @@ register('p2-sgd',(el,ctx)=>{
 });
 const C2=CH['2'];
 S_('sgd','grad','A gradient from part of the data',{builds:3,from:[5,'#page=47'],
- body:`${widget('p2-sgd',sgdAlt)}${answer(3,`Their average is exactly the full step, ${vec(A.full_step,3)}: right on average, noisy on each draw.`)}`,
+ body:`${widget('p2-sgd',sgdAlt)}${answer(3,`Their average is exactly the full step, ${vec(A.full_step,3)}: each draw is noisy but right on average.`)}`,
  lines:[`Lecture 5’s line fit, one step of size ${A.eta} from (b, w) = ${vec(A.theta0,0)}. With all four points the loss falls. Which single point would you rather not draw?`,
   'Click point 2: its own loss falls, but the loss on all four rises. The grey arrows are the other one-point steps. Where is their average?',
   'One draw can go uphill while the average goes downhill. A larger batch shrinks the spread.'],
@@ -151,7 +151,7 @@ S_('sgd','grad','A gradient from part of the data',{builds:3,from:[5,'#page=47']
  expected:[`Point 4 pulls hardest (gradient ${vec(A.per_point[3],0)}). Point 2 is the unlucky one: it is nearly fitted already, so its step barely helps the rest.`,
   'It is the exact gradient of point 2’s loss, not of the total. Lowering b helps points 1 and 2 but hurts points 3 and 4, which sit far above the line. The four grey and purple arrows average to the full-batch step.',
   'One full gradient costs a pass over all the data. With millions of examples, a mini-batch of a few hundred gives a good enough direction many times more cheaply.'],
- point:'A mini-batch gives a cheap estimate of the gradient that is right on average, so single steps can go uphill.',
+ point:'A mini-batch gives a cheap estimate of the gradient that is right on average, but a single step can go uphill.',
  misconception:'That SGD is wrong whenever the loss goes up on a step. One draw follows one point’s surface; only the average follows the full loss.',
  demo:'Start on “all four points”, then click point 2 and point 4 in turn. Read the loss on all four points each time.',
  transition:'Even an exact gradient can make slow progress. Lecture 7’s ravine shows why.',source:`Example A of Lecture 5. ${SCRIPT}`});
@@ -200,7 +200,7 @@ S_('opt-play','grad','Same ravine, four optimizers',{builds:2,from:[7,'#page=105
   'Momentum keeps a running average of the gradients (direction). RMSProp keeps a running average of their squares (the size of each coordinate). Adam keeps both, with a correction for starting at zero.'],
  point:'Momentum remembers direction, RMSProp remembers scale, and Adam remembers both.',
  misconception:'That Adam needs no tuning. Each method here has its own step size from the lecture; with the same η they would rank differently.',
- demo:`The figure opens at ${O.steps} steps. Pick gradient descent, drag back to 0 and forward again to watch it cross the valley; then do the same for momentum. The losses on the right: gradient descent ${OL('gd')}, momentum ${OL('momentum')}, Adam ${OL('adam')}, RMSProp ${OL('rmsprop')}.`,
+ demo:`The figure opens at ${O.steps} steps. Pick gradient descent, drag back to 0 and forward again to watch it cross the valley; then do the same for momentum. The right side lists the losses: gradient descent ${OL('gd')}, momentum ${OL('momentum')}, Adam ${OL('adam')}, RMSProp ${OL('rmsprop')}.`,
  transition:'Backprop on scalars gave these gradients. A real layer works on vectors.',source:`Example B of Lectures 5 and 7, with each method’s step size from Lecture 7. ${SCRIPT}`});
 
 // ---------------------------------------------------------------------------------------- 2.5 autograd on vectors
@@ -248,7 +248,7 @@ S_('logits','grad','Softmax overflows; the loss takes logits',{builds:3,from:[9,
   ${at(3,`<div class="code-sm">${code(`loss = F.cross_entropy(logits, y)   # takes logits, subtracts the max inside`)}</div>`)}`,
  lines:[`Softmax turns logits into probabilities. For (${S1.z.join(', ')}) it is easy. What should (${S2.z.join(', ')}) give?`,
   `Computed directly in float32, e to the ${SM.max} overflows to inf, and inf divided by inf is nan.`,
-  `Subtracting the same number from every logit leaves softmax unchanged. Subtract the largest: the same three probabilities, with nothing to overflow.`],
+  `Subtracting the same number from every logit leaves softmax unchanged. Subtracting the largest gives the same three probabilities, and nothing overflows.`],
  ask:[`Before computing: is softmax(${S2.z.join(', ')}) different from softmax(${S1.z.join(', ')})?`,'Where exactly does it break?','So what should a model output, and where should the softmax go?'],
  expected:['No. Only differences between logits matter, and both have gaps of 1.',
   `float32 holds numbers up to about e to the ${SM.fp32_max_exp}; e to the ${SM.max} becomes inf, and inf / inf is nan.`,
@@ -290,7 +290,7 @@ S_('schedule','grad','Large steps early, small steps late',{builds:2,from:deck(9
  point:'The optimizer chooses the direction of each step; the schedule chooses its size over time.',
  misconception:'That a decaying η means the model learns less late in training. It means the noisy part of each step shrinks, so the parameters settle.',
  demo:`Drag from 0 to ${SC.T}: the curve is flat at both ends and steepest in the middle. Stop at ${SC.mid} to read ${num(SC.eta[SC.mid],4)}.`,
- transition:'Time to check the part with one question.',source:`Example: Lecture 9 (learning-rate schedules). ${SCRIPT}`});
+ transition:'One question checks this part.',source:`Example: Lecture 9 (learning-rate schedules). ${SCRIPT}`});
 
 // ---------------------------------------------------------------------------------------- check and recap
 chap();
@@ -305,10 +305,10 @@ S_('check-2','grad','Check: the loss went up',{builds:2,nochap:true,
   'The loss on all the training data (or a running average of the batch losses) every few hundred steps. If that trend rises, lower η or check the code; one batch is too noisy to judge.'],
  point:'A mini-batch step can go uphill; the trend over many steps is what to watch.',
  misconception:'That every SGD step must lower the loss.',
- transition:'Here is the part on the recipe card.',source:`Example A of Lecture 5. ${SCRIPT}`});
+ transition:'Now this part on the recipe card.',source:`Example A of Lecture 5. ${SCRIPT}`});
 
 recap(2,['Backprop gives every gradient in one sweep; a layer multiplies by Jᵀ.',
-  'A mini-batch gradient is cheap, right on average, noisy per draw.',
+  'A mini-batch gradient is cheap and right on average, but noisy.',
   'Momentum and Adam shape each step; a schedule shrinks it.'],
  'Part 3, where a low training loss turns out to be the wrong thing to celebrate.',
  {card:{...RECIPES.mlp,step:'backprop on a mini-batch; Adam and a schedule set the step'},title:'MLP classifier',

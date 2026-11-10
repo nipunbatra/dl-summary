@@ -26,7 +26,7 @@ partBreak(1,'Where the loss comes from',
   'A prior on the weights adds a penalty.','Stack linear layers and ReLUs to get a network.'],
  {line:'By the end of this part you can say where cross-entropy and squared error come from.',
   ask:'Where did cross-entropy come from? Was it chosen because it works well?',
-  expected:'It was not picked from a list. It is the negative log-likelihood of a categorical distribution, and every other loss of the course is read off a distribution the same way.',
+  expected:'No. It is the negative log-likelihood of a categorical distribution, and every other loss of the course comes from a distribution the same way.',
   transition:'Start with the smallest likelihood we wrote: ten tosses of a coin.'});
 
 // ---------------------------------------------------------------------------------------- 1.1 the coin
@@ -107,7 +107,7 @@ S_('nll-loss','found','Cross-entropy is the negative log of the right class',{bu
  lines:[`Two networks. One says ${kp('p = '+CE.bin.p)} for a label ${kt('y = '+CE.bin.y)}. The other gives the logits shown, and class 1 is correct. What loss does each pay?`,
   `The Bernoulli’s negative log is binary cross-entropy: ${kl(`−ln ${CE.bin.p} = ${num(CE.bin.loss)}`)}. Had it said ${CE.bin.p_bad}, it would pay ${num(CE.bin.loss_bad)}.`,
   `Softmax turns the logits into probabilities. Class 1 gets ${num(CE.p[0])}, so the loss is ${kl(`−ln ${num(CE.p[0])} = ${num(CE.loss)}`)}. That is cross-entropy.`,
-  `Its gradient at the logits is p − y. A step against it raises the right class’s logit and lowers the others by what they took.`],
+  `Its gradient at the logits is p − y. Stepping against it raises the right class’s logit and lowers the others by their probabilities.`],
  ask:['What loss does each network pay?','Why is a confident mistake so expensive?','How large can this loss get, and how small?','Why is p − y a good learning signal?'],
  expected:['Each pays −ln of the probability it gave the right answer. Let them compute the first one.',
   `The negative log grows without bound as p goes to 0: p = ${CE.bin.p_bad} already costs ${num(CE.bin.loss_bad)}.`,
@@ -120,18 +120,18 @@ S_('nll-loss','found','Cross-entropy is the negative log of the right class',{bu
 // ---------------------------------------------------------------------------------------- 1.3 a distribution per target
 chap('1.3','Output: a distribution');
 const gcell=(b,s)=>at(b,s);
-S_('dist-loss','found','Each kind of target picks a distribution, and a loss',{builds:3,from:3,
+S_('dist-loss','found','Each kind of target picks a distribution and a loss',{builds:3,from:3,
  body:`<div class="table-sm p1-dist">${table(['the target','distribution','output layer','loss','one example'],[
    ['a label, 0 or 1','Bernoulli','sigmoid','binary cross-entropy',m(R`-\ln ${tn(CE.bin.p,1)}=${tn(CE.bin.loss)}`)],
    [`one of ${m('K')} classes`,'categorical','softmax','cross-entropy',m(R`-\ln ${tn(CE.p[0])}=${tn(CE.loss)}`)],
    ['a real number',gcell(2,`Gaussian, fixed ${m(R`\sigma`)}`),gcell(2,'none (the mean)'),gcell(2,'squared error'),
     gcell(3,m(R`r=${tn(G.r,0)}:\ ${tn(G.sq,0)}+${tn(G.const)}`))]])}</div>
   ${at(3,eq(R`\lcol{-\ln \N(y;\,\qcol{\mu},\sigma^2)}=\frac{(\pcol{y}-\qcol{\mu})^2}{2\sigma^2}+\tfrac12\ln(2\pi\sigma^2)`))}`,
- lines:['The last two slides in one table: each kind of target gets a distribution, and its negative log is the loss. What goes in the last row?',
+ lines:['This table joins the last two slides: each kind of target gets a distribution, and its negative log is the loss. What goes in the last row?',
   'A real number gets a Gaussian with a fixed σ. The network outputs its mean, with nothing to squash it.',
   `Its negative log is the squared error over 2σ², plus a constant that never moves the fit. With r = ${num(G.r,0)} and σ = ${num(G.sigma,0)}: ${num(G.sq,0)} plus ${num(G.const)}.`],
  ask:['For a real-valued target, which distribution, which output layer, which loss?','Why no sigmoid or softmax on the last row?','So what does training with squared error assume about the noise?'],
- expected:['A Gaussian; no squashing; squared error.','A mean can be any real number, so the output layer leaves the score as it is.',
+ expected:['A Gaussian, a raw output with no squashing, and squared error.','A mean can be any real number, so the output layer leaves the score as it is.',
   'Gaussian noise with one fixed σ for every input. Outliers then pull hard on the fit; a Laplace noise model gives absolute error instead (Lecture 3).'],
  point:'Choosing the output distribution chooses the output layer and the loss together.',
  misconception:'That squared error is a neutral default. It is the Gaussian’s negative log-likelihood, and it brings the Gaussian’s light tails with it.',
@@ -179,7 +179,7 @@ S_('map-prior','found','A Gaussian prior is an L2 penalty',{builds:3,from:3,
  point:'The regularizer is the negative log of a prior: MAP is the negative log-likelihood plus the negative log-prior.',
  misconception:'That regularization is a trick bolted onto the loss. It is the prior written in the same units as the loss.',
  demo:`Click 2: drag τ from ${M.taus[tBig]} down to ${M.taus[0]} and watch the purple line flatten while λ grows.`,
- transition:'The losses are settled. Now the model itself: one weighted sum is not enough.',source:SRC('The four points and σ = 0.5 are Lecture 3’s MAP example.')});
+ transition:'The losses are settled. Now we turn to the model, where one weighted sum is not enough.',source:SRC('The four points and σ = 0.5 are Lecture 3’s MAP example.')});
 
 // ---------------------------------------------------------------------------------------- 1.5 layers and ReLUs
 chap('1.5','Model: layers and ReLUs');
@@ -253,7 +253,7 @@ S_('p1-hinges','found','Enough hinges fit any curve',{builds:2,from:4,
  point:'A one-hidden-layer ReLU network can approximate any continuous function on a bounded range, given enough units.',
  misconception:'That this theorem explains why deep networks train well. It is a statement about capacity only.',
  demo:'Click the three buttons in order; point at the red bar, the largest gap, each time.',
- transition:'Time to check the whole part with one number.',source:SRC('Fits of sin x on [−π, π] with equally spaced hinges, as in Lecture 4.')});
+ transition:'Now we check the whole part with one number.',source:SRC('Fits of sin x on [−π, π] with equally spaced hinges, as in Lecture 4.')});
 
 // ---------------------------------------------------------------------------------------- check
 chap();
@@ -267,8 +267,8 @@ S_('check-1','found',`Check: a loss of ${num(K.loss)} at the first step`,{builds
  ask:['Is something broken?','What first loss would worry you?'],
  expected:[`No: −ln of the right class’s probability, with ${word(K.K)} equal guesses, is ln ${K.K} = ${num(K.loss)}.`,
   `One much larger than ${num(K.loss)}: the network is confidently wrong before it has learned anything, usually from badly scaled initial weights. One much smaller would hint at a bug or a leak of labels.`],
- point:'Cross-entropy at the start of training should be close to ln K; that is a free sanity check.',
- transition:'The whole part on one card.'});
+ point:'Cross-entropy at the start of training should be close to ln K, which gives you a free sanity check.',
+ transition:'This card holds the whole part.'});
 
 // ---------------------------------------------------------------------------------------- recap
 recap(1,[
@@ -280,4 +280,4 @@ recap(1,[
   ask:'Which rows of the card did this part fill in?',
   expected:'The model (an MLP), the output (softmax probabilities) and the loss (−ln of the right class). The update row is what Part 2 is about.',
   point:'Part 1 fixed the model, the output and the loss of the recipe.',
-  transition:'Part 2: how the weights move.'});
+  transition:'Part 2 is about how the weights move.'});

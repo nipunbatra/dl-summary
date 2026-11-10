@@ -38,9 +38,9 @@ const ceTable=`<div class="table-sm tight p8-ce"><div class="table-scroll"><tabl
 const WORST=PT[D.worst];
 S_('threads-ce','wrap',`The same loss, ${word(PT.length)} times`,{builds:3,
  body:cols(ceFig,`${ceTable}${answer(3,`Row ${D.worst+1}, the character model of ${Lec(WORST.lec)}. Its ${kp('p = '+num(WORST.p))} is the smallest, so its loss ${kl(num(WORST.loss))} is the largest.`)}`,'1fr 1.42fr'),
- lines:[`${Word(PT.length)} models from ${word(PT.length)} parts of the course. Each gave a probability ${kp('p')} to what was observed. Which one was penalised most?`,
+ lines:[`${Word(PT.length)} models, from ${word(PT.length)} parts of the course, each gave a probability ${kp('p')} to what was observed. Which one was penalised most?`,
   `Each loss is ${kl('−ln p')}, so all ${word(PT.length)} sit on one curve.`,
-  'The loss reads one number, the probability given to what was observed.'],
+  'The loss uses one number: the probability given to what was observed.'],
  ask:['Without computing anything: how do you rank the five?','Where on this curve is a model that is certain and right? Certain and wrong?',
   'Squared error and the ELBO are not on this slide. Do they belong on the curve?'],
  expected:['By p alone. The smallest p gets the largest penalty, whatever the model is.',
@@ -88,7 +88,7 @@ S_('threads-attn','wrap','The same block, in four models',{builds:4,
   `It changes their width from ${L.d_v} to ${L.d_lm} so they fit the language model. Their number stays ${L.rows}.`],
  point:'One block served four models. They differ in what a token is, which mask is used and where the output is read.',
  misconception:'That vision models need a different architecture from language models. After Lecture 16 the block is the same.',
- transition:'Two threads, then. Now every part against the six rows of the card.',
+ transition:'Next we check every part against the six rows of the card.',
  source:'Parts 4 and 5 of this deck; Lectures 12 to 19.'});
 function kTok(v,s){return `<span style="display:inline-block;width:15px;height:15px;border-radius:4px;border:2px solid var(--${v});background:color-mix(in srgb,var(--${v}) 16%,transparent);vertical-align:-2px"></span> ${s}`;}
 
@@ -108,7 +108,7 @@ S_('parts-rows','wrap',`${Word(PARTS.length)} parts, six rows`,{builds:2,
  point:'New tasks changed the data, the output and the loss. The update was built once, in Part 2.',
  misconception:'That each architecture needs its own optimizer. Adam trained the classifier, the language model and the VAE alike.',
  demo:'Each part’s name opens its recap slide.',
- transition:'The same view, one model at a time.'});
+ transition:'Next we take the same view one model at a time.'});
 
 // ---------------------------------------------------------------------------------------- the ten recipes
 const stepSame=r=>r.step===RECIPES.mlp.step||r.step===RECIPES.charlm.step;
@@ -133,7 +133,7 @@ S_('master','wrap',`${Word(MODELS.length)} models, one card each`,{builds:2,
  body:`<div class="p8-master">${widget('p8-recipes',masterAlt)}<div>${MODELS.map((M,i)=>`<div data-card="${M.id}"${i?' hidden':''}>${cardOf(M)}</div>`).join('')}
   ${answer(2,`${Word(newStep.length)}: the ${newStep.map(M=>lower(M.name)).join(' and the ')}. Both draw a sample inside the model, and the gradient has to pass through it.`)}</div></div>`,
  lines:[`Pick a model. Its card shows the six rows, and the tinted rows are the ones that differ from the MLP classifier’s. How many models tint the Update row?`,
-  'Even there it is a gradient step. Everything else that changed is data, model, output, loss or use.'],
+  'Even there it is a gradient step. Everything else that changed is in the other five rows.'],
  ask:['Which model has the fewest tinted rows, and why?','Which models need no labels at all?'],
  expected:[`The ${lower(FEW.name)}, with ${word(changed(FEW.id).length)}. It is a classifier like the MLP, so its loss and its decision are the MLP’s.`,
   'The language models, CLIP and the VAE. Their targets come from the data itself: the next token, the paired caption, the image.'],
@@ -150,16 +150,16 @@ S_('pipeline','wrap','The recipe, for a problem of your own',{builds:3,
   {name:'What the course put in each box',at:2,steps:boxes(['labels, tokens,\ncaptions, boxes','MLP, attention\nblocks, encoders','softmax,\nGaussian,\na list of boxes','cross-entropy,\nsquared error,\n−ELBO','SGD,\nmomentum,\nAdam','pick, sample,\ncorrect, filter'])},
   {name:'Tomorrow’s PM2.5, with an error bar',at:3,steps:boxes(['today’s weather,\ntomorrow’s\nPM2.5','an MLP','a Gaussian:\nmean and\nspread','−ln of its\ndensity at the\nmeasured value','Adam, with\na schedule','mean ± two\nspreads'],COL.guess)}],
   {W:1152,bh:86,gx:18,gy:14,fs:18,alt:'The recipe as a flowchart of six boxes, filled three ways: as questions, with what the course used, and for a PM2.5 forecast'}),
- lines:['The card as a flowchart. Each box is a question to answer before you write any code.',
+ lines:['The card becomes a flowchart. Each box is a question to answer before you write any code.',
   'These are the answers the course gave. Now a new problem: forecast tomorrow’s PM2.5 and say how sure you are. What goes in each box?',
-  'One good answer. The Gaussian output carries the error bar, and its loss is squared error divided by the predicted spread, plus a term for the spread.'],
+  'One good answer: the Gaussian output carries the error bar, and its loss is squared error divided by the predicted spread, plus a term for the spread.'],
  ask:['Which box would you answer first?','For the forecast, what is observed and what must the model output?','How does the network keep the spread positive?'],
  expected:['The first and the third: what is observed, and which distribution the model puts over it. The loss follows from those two.',
   'Observed: tomorrow’s measured PM2.5, a number. Output: a distribution over that number, so a mean and a spread.',
   'A softplus or an exponential on the raw output, the “valid outputs by design” of Lecture 9.'],
  point:'A new problem is a new set of answers to the same six questions.',
  misconception:'That uncertainty needs a Bayesian network. A Gaussian output head already gives an error bar for the noise in the data.',
- transition:'The course, once more, on one slide.',
+ transition:'Finally, the course on one slide.',
  source:'Lectures 1 to 3 for the Gaussian likelihood; Lecture 9 for the positive spread.'});
 
 // ---------------------------------------------------------------------------------------- the course on one slide
@@ -173,7 +173,7 @@ S_('summary','wrap','The course on one slide',{builds:1,
   <div class="sm"><h3>${Word(MODELS.length)} models</h3><ul>
    <li>Attention reads characters, word pieces and image patches.</li>
    <li>Each model fills the same six rows of the card.</li></ul></div></div>`,
- lines:[`${Word(course.count)} lectures as one method. For your own problem, which row of the card comes first?`],
+ lines:[`${Word(course.count)} lectures make one method. For your own problem, which row of the card comes first?`],
  ask:['Take a problem from your own work. What is observed, and which distribution over it would your model output?'],
  expected:['Any answer that names what is observed and a distribution over it: a class and a softmax, a number and a Gaussian, a sentence and a next-token distribution. The loss then follows as −ln p of what was observed.'],
  point:`Choose what is observed and a distribution over it. The loss and the update follow, as they did for all ${word(MODELS.length)} models.`,

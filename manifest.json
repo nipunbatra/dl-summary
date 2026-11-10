@@ -135,7 +135,7 @@
     },
     {
       "id": "dist-loss",
-      "title": "Each kind of target picks a distribution, and a loss",
+      "title": "Each kind of target picks a distribution and a loss",
       "section": "found",
       "chapter": "1.3 Output: a distribution",
       "builds": 3,
@@ -303,7 +303,7 @@
     },
     {
       "id": "splits",
-      "title": "Train fits, validation chooses, test reports",
+      "title": "Each split has one job",
       "section": "gen",
       "chapter": "3.5 Data: three splits",
       "builds": 3,

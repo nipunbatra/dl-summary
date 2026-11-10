@@ -70,11 +70,11 @@ chap('3.1','At test time: the gap');
   lines:[`${Word(P.n_train)} points from sin(πx) plus noise of size ${P.noise}, and ${word(P.n_val)} validation points at the midpoints. A degree ${P.degree} polynomial has ${word(P.n_weights)} weights. What will its training error be?`,
    `With ${word(P.n_weights)} weights and ${word(P.n_train)} points it passes through every training point, so the training error is ${num(I.train)}.`,
    `Between the points it swings far from sin(πx): the validation error is ${num(I.val)}, about ${num(I.times_noise,0)} times the noise variance ${P.sigma2}.`],
-  ask:['Predict the training error and the validation error of the degree ${P.degree} fit.','Is a training error of zero good news?','Where does the large error come from?'],
-  expected:[`Training error zero (${word(P.n_weights)} equations, ${word(P.n_weights)} unknowns); the validation error large.`,
+  ask:[`Predict the training error and the validation error of the degree ${P.degree} fit.`,'Is a training error of zero good news?','Where does the large error come from?'],
+  expected:[`The training error is zero (${word(P.n_weights)} equations, ${word(P.n_weights)} unknowns), and the validation error is large.`,
    'No. The fit has matched the noise as well as the curve; the training error cannot tell the two apart.',
    `From the swings between the points and near the ends. The weights have to be huge to make them: ‖w‖ = ${num(I.norm,0)}.`],
-  point:'A model that can match every training point can be very wrong between them; only held-out data shows it.',
+  point:'A model that matches every training point can still be very wrong between them, and only held-out data shows it.',
   misconception:'That a lower training error always means a better model.',
   transition:'The large weights point to the fix: make large weights cost something.',source:SOURCE});
 }
@@ -113,7 +113,7 @@ S_('reg-play','gen','Make large weights cost something',{builds:2,from:10,
  lines:[`The loss gets a second term that grows with the weights. Drag λ from 0 upwards. Which column of the table should choose λ?`,
   `Too little λ leaves the swings; too much flattens the curve. Only validation sees both mistakes.`],
  ask:['Which column of the table may choose λ, and why not the others?','What happens at λ = 1?'],
- expected:['Validation. Training error only rises as λ grows, and ‖w‖ is a check on the mechanism, not a target.',
+ expected:['Validation. Training error only rises as λ grows, and ‖w‖ only shows that the penalty is working.',
   `The fit is too flat to follow sin(πx): training ${num(SW.at(-1).train,3)} and validation ${num(SW.at(-1).val,3)}. That is underfitting.`],
  point:'A penalty on ‖w‖ trades a little training error for a much smaller validation error, and validation sets its strength.',
  misconception:'That the penalty helps the training error. It always makes the training error worse; it helps on new data.',
@@ -143,7 +143,7 @@ chap('3.3','Data and Loss: four regularisers');
    'Augmentation changes the Data row: each epoch sees a fresh crop and flip of every image.'],
   ask:['Where does the factor (1 − ηλ) come from?','Why divide by q during training?','What does the plain one-hot target ask of the logits?','Which transforms would change the label?'],
   expected:[`From the gradient of (λ/2)‖θ‖², which is λθ. One step: ${w.shrink} × ${w.theta} = ${num(w.shrunk)}, then − ${w.eta} × ${w.g} gives ${num(w.new)}.`,
-   `So the expected value stays the same: E[h̃₃] = ${d.keep} × ${num(d.out[2],0)} + ${d.keep} × 0 = ${num(d.mean3,0)}. At test time the full h is used with no rescaling.`,
+   `So the expected value stays the same: E[h̃₃] = ${d.keep} × ${num(d.out[2],0)} + ${1-d.keep} × 0 = ${num(d.mean3,0)}. At test time we use the full h with no rescaling.`,
    `An infinite gap: p_b → 1 needs the logits to grow without end. With smoothing the push stops at a gap of ln(${s.target[s.y]}/${s.target[0]}) = ${num(s.gap)}.`,
    'A flip that turns a 6 into a 9, or a left turn into a right turn. The transform must keep the label true, or the label must move with it.'],
   point:'Each regulariser adds a preference the ten points alone did not give, at a different row: the update, the hidden units, the target, the data.',
@@ -170,9 +170,9 @@ chap('3.4','At test time: what helped');
   lines:[`Lecture 10 trained one small CNN five times, changing one thing each time. Which change do you expect to help most?`,
    `With only ${big(C.n_train)} images, new views of the data did more than any change to the loss or the network.`],
   ask:['Make a guess before the bars appear: which of the four regularisers wins?','Does this prove weight decay is useless?'],
-  expected:['Most students say dropout. Augmentation wins by a wide margin.',
+  expected:['Crop and flip wins by a wide margin.',
    `No. This is one seed and one setting each (λ = ${C.wd_lam}, ε = ${C.eps}); another λ might help, and the small gaps may not survive a second seed.`],
-  point:'When data are scarce, more valid views of the data is the strongest regulariser in this run.',
+  point:'With scarce data, adding valid views of the data was the strongest regulariser in this run.',
   misconception:'That a regulariser which did not help at one setting never helps. Its strength was not tuned here.',
   transition:'Every number on this slide was a test accuracy. Who was allowed to look at it, and when?',
   source:'Recorded: Lecture 10, “Controlled CIFAR-10 ablations” (lecture7/diagrams/cifar_regularization_experiment.py, one seed), not retrained.'});
@@ -196,18 +196,18 @@ chap('3.5','Data: three splits');
    gat(i+1,label(x+bw/2,y+138,esc(t1),{size:27,anchor:'middle',fill:COL.ink})+(t2?label(x+bw/2,y+170,esc(t2),{size:27,anchor:'middle',fill:COL.ink}):'')+
     label(x+bw/2,y+206,esc(note),{size:21,anchor:'middle',fill:MUTED}));
   if(i)g+=arrow(x-gx+8,y+bh/2,x-8,y+bh/2,{stroke:COL.ink,w:2.5,head:11});});
- S_('splits','gen','Train fits, validation chooses, test reports',{builds:3,from:10,
+ S_('splits','gen','Each split has one job',{builds:3,from:10,
   body:`${fig(W,H,g,'Three splits of the ten-point lab: the training set fits the weights, the validation set chooses lambda and when to stop, the test set is read once')}
    ${small(`The ten-point lab, with the fit at λ = ${lamTxt(BEST.lam)}. Each dot is one input x on the interval from ${num(P.grid[0],0)} to ${num(P.grid.at(-1),0)}.`)}`,
   lines:['The training set has one job: gradient steps on it fit the weights θ.',
-   `Every choice we make (λ, when to stop, which regulariser) is made on validation. Here it picked λ = ${lamTxt(BEST.lam)}.`,
-   'The test set is read once, at the end, for the report. If it changes a knob, it has become a second validation set.'],
+   `We make every choice (λ, when to stop, which regulariser) on validation. Here it picked λ = ${lamTxt(BEST.lam)}.`,
+   'We read the test set once, at the end, for the report. If it changes a choice, it has become a second validation set.'],
   ask:['Why can the training set not choose λ?','Is validation error an honest estimate after we used it to choose?','Why is the test error higher than the validation error here?'],
   expected:['Training error is lowest at λ = 0 by construction; it would always pick the interpolant.',
    'Slightly optimistic: we picked the λ that happened to do best on those nine points. That is why a third split exists.',
    `Validation chose λ to suit its own ${word(P.n_val)} points; the ${P.n_test} test points are new. Test ${num(BEST.test,3)} against validation ${num(BEST.val,3)} is the honest gap.`],
   point:'Training fits θ, validation chooses everything else, and the test set reports once.',
-  misconception:'That reporting the best test score over many runs is fine. Choosing by test turns it into validation.',
+  misconception:'That reporting the best test score over many runs is fine. Choosing by the test score turns the test set into a validation set.',
   transition:'Now use all of it on a curve you will see in every project.',source:SOURCE});
 }
 
@@ -228,12 +228,12 @@ chap('3.5','Data: three splits');
    `${p('Training error keeps falling while validation error has started to rise. What do you do?')}
     ${answer(2,`Stop, and restore the step with the lowest validation error: step ${big(EB.t)}, ${num(EB.val,3)}. To do better, add a regulariser and let validation choose its strength.`)}`,'1fr 1fr'),
   lines:[`Gradient descent on the ten-point lab, from w = 0. Training error falls from ${num(rows[0].train,3)} to ${num(rows.at(-1).train,3)}; validation error turns up after step ${big(EB.t)}.`,
-   `Restoring step ${big(EB.t)} gives test error ${num(EB.test,3)}, as good as the penalty’s ${num(BEST.test,3)}. Both choices were made on validation.`],
+   `Restoring step ${big(EB.t)} gives test error ${num(EB.test,3)}, as good as the penalty’s ${num(BEST.test,3)}. Validation made both choices.`],
   ask:['Training error keeps falling while validation error rises. What do you do?','Could we have chosen the step by the test error instead?'],
   expected:[`Early stopping: keep the checkpoint with the lowest validation error (step ${big(EB.t)}), then, if needed, add weight decay, dropout or augmentation, with validation choosing the strength.`,
    'No. Then the test error would no longer be an honest report; it would be a second validation set.'],
   point:'When the curves part, the model has started to fit the noise: stop at the best validation step, then regularise with validation as the judge.',
-  misconception:'That the last epoch is the model to keep. The best validation checkpoint is.',
+  misconception:'That we should keep the model from the last epoch. We keep the checkpoint with the lowest validation error.',
   transition:'Here is Part 3 on one card.',source:SOURCE});
 }
 
