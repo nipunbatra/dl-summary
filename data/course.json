@@ -1,0 +1,982 @@
+{
+ "source": "dl-2026/schedule.qmd at 95c5fc2",
+ "count": 26,
+ "modules": [
+  {
+   "id": "foundations",
+   "title": "Foundations",
+   "lectures": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "id": "gradients-optimization",
+   "title": "Gradients and optimization",
+   "lectures": [
+    5,
+    6,
+    7,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "generalization",
+   "title": "Generalization",
+   "lectures": [
+    10
+   ]
+  },
+  {
+   "id": "attention-and-language",
+   "title": "Attention and language",
+   "lectures": [
+    11,
+    12,
+    13,
+    14,
+    15
+   ]
+  },
+  {
+   "id": "vision",
+   "title": "Vision and language",
+   "lectures": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+   ]
+  },
+  {
+   "id": "generative",
+   "title": "Generative modelling",
+   "lectures": [
+    23,
+    24,
+    25
+   ]
+  },
+  {
+   "id": "detection",
+   "title": "Object detection",
+   "lectures": [
+    26
+   ]
+  }
+ ],
+ "lectures": [
+  {
+   "n": [
+    1
+   ],
+   "module": "foundations",
+   "title": "Where Deep Learning Losses Come From I",
+   "sub": "Distributions, likelihood, and loss.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L1.pdf"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L1-presentation.pdf"
+    },
+    {
+     "kind": "cheat",
+     "label": "Cheat sheet",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/S01-cheatsheet.pdf"
+    },
+    {
+     "kind": "short",
+     "label": "Where do loss functions come from?",
+     "href": "https://www.youtube.com/watch?v=8-HcIIqmmsw"
+    }
+   ]
+  },
+  {
+   "n": [
+    2
+   ],
+   "module": "foundations",
+   "title": "Where Deep Learning Losses Come From II",
+   "sub": "MLE, regression, and classification.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L1.pdf"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L1-presentation.pdf"
+    },
+    {
+     "kind": "cheat",
+     "label": "Cheat sheet",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/S02-cheatsheet.pdf"
+    },
+    {
+     "kind": "short",
+     "label": "Where MSE and cross-entropy come from",
+     "href": "https://www.youtube.com/watch?v=HO9Tj5VUGfs"
+    }
+   ]
+  },
+  {
+   "n": [
+    3
+   ],
+   "module": "foundations",
+   "title": "Likelihood to Loss in Practice",
+   "sub": "MAP, regularization, and robust observation models.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L1.pdf"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L1-presentation.pdf"
+    },
+    {
+     "kind": "cheat",
+     "label": "Cheat sheet",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/S03-cheatsheet.pdf"
+    },
+    {
+     "kind": "short",
+     "label": "Outliers: how the noise model picks the loss",
+     "href": "https://www.youtube.com/watch?v=-au-iIaujvQ"
+    },
+    {
+     "kind": "short",
+     "label": "Priors: where regularization comes from",
+     "href": "https://www.youtube.com/watch?v=caceJmOSU9g"
+    },
+    {
+     "kind": "notebook",
+     "label": "Likelihood notebook",
+     "href": "https://nipunbatra.github.io/dl-teaching/notebooks/L01/00_likelihood_iid_worked_examples.html"
+    },
+    {
+     "kind": "notebook",
+     "label": "Robust regression",
+     "href": "https://nipunbatra.github.io/dl-teaching/notebooks/L01/03_robust_linear_regression.html"
+    }
+   ]
+  },
+  {
+   "n": [
+    4
+   ],
+   "module": "foundations",
+   "title": "From Linear Models to Neural Networks",
+   "sub": "Neurons, activations, multilayer networks, XOR, and approximation.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L2.pdf"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L2-presentation.pdf"
+    },
+    {
+     "kind": "cheat",
+     "label": "Cheat sheet",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/S04-cheatsheet.pdf"
+    },
+    {
+     "kind": "short",
+     "label": "From weighted sums to neurons: solving XOR",
+     "href": "https://www.youtube.com/watch?v=DYmy_HVexUY"
+    },
+    {
+     "kind": "short",
+     "label": "ReLU hinges and universal approximation",
+     "href": "https://www.youtube.com/watch?v=kRBao9ic-Kk"
+    },
+    {
+     "kind": "notebook",
+     "label": "Linear gradient descent",
+     "href": "https://colab.research.google.com/github/nipunbatra/dl-teaching/blob/master/notebooks/L02/01_linear_regression_gd.ipynb"
+    },
+    {
+     "kind": "notebook",
+     "label": "XOR",
+     "href": "https://colab.research.google.com/github/nipunbatra/dl-teaching/blob/master/notebooks/L02/02_mlp_xor.ipynb"
+    }
+   ]
+  },
+  {
+   "n": [
+    5
+   ],
+   "module": "gradients-optimization",
+   "title": "Optimization I — Gradient Estimates & Step Sizes",
+   "sub": "Batches, stochastic gradients, and optimizer geometry.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L5.pdf"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L5-presentation.pdf"
+    },
+    {
+     "kind": "cheat",
+     "label": "Cheat sheet",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/S05-cheatsheet.pdf"
+    },
+    {
+     "kind": "recording",
+     "label": "Full recording",
+     "href": "https://www.youtube.com/watch?v=CIdlYRSvnWQ"
+    },
+    {
+     "kind": "short",
+     "label": "SGD vs minibatch: how much data per step?",
+     "href": "https://www.youtube.com/watch?v=iByVRBf1nAA"
+    },
+    {
+     "kind": "short",
+     "label": "Why gradient descent zigzags: step sizes",
+     "href": "https://www.youtube.com/watch?v=8-f5bE3uBsE"
+    }
+   ]
+  },
+  {
+   "n": [
+    6
+   ],
+   "module": "gradients-optimization",
+   "title": "Backpropagation & Autograd from Scratch",
+   "sub": "Computation graphs, reverse mode, and a scalar engine.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L3.pdf"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L3-presentation.pdf"
+    },
+    {
+     "kind": "cheat",
+     "label": "Cheat sheet",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/S06-cheatsheet.pdf"
+    },
+    {
+     "kind": "recording",
+     "label": "Full recording",
+     "href": "https://www.youtube.com/watch?v=I0Omc95jFiA"
+    },
+    {
+     "kind": "short",
+     "label": "Backprop by hand: one local rule",
+     "href": "https://www.youtube.com/watch?v=eB7ROt3NFBI"
+    },
+    {
+     "kind": "short",
+     "label": "Build a tiny autograd engine from scratch",
+     "href": "https://www.youtube.com/watch?v=9qzBLGoWhg4"
+    },
+    {
+     "kind": "notebook",
+     "label": "Colab notebook",
+     "href": "https://colab.research.google.com/github/nipunbatra/dl-teaching/blob/master/notebooks/L03/04_scalar_autograd_pytorch_to_scratch.ipynb"
+    }
+   ]
+  },
+  {
+   "n": [
+    7
+   ],
+   "module": "gradients-optimization",
+   "title": "Optimization II — Momentum, RMSProp & Adam",
+   "sub": "Moving averages and adaptive coordinate scaling.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L5.pdf"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L5-presentation.pdf"
+    },
+    {
+     "kind": "cheat",
+     "label": "Cheat sheet",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/S07-cheatsheet.pdf"
+    },
+    {
+     "kind": "recording",
+     "label": "Full recording 1",
+     "href": "https://www.youtube.com/watch?v=ZaQ-gIYSv_A"
+    },
+    {
+     "kind": "recording",
+     "label": "Full recording 2",
+     "href": "https://www.youtube.com/watch?v=dobX7TW_DuE"
+    },
+    {
+     "kind": "short",
+     "label": "Momentum: averaging away the zigzag",
+     "href": "https://www.youtube.com/watch?v=lgYjBXYG6dA"
+    },
+    {
+     "kind": "short",
+     "label": "RMSProp and Adam: a step size per coordinate",
+     "href": "https://www.youtube.com/watch?v=DBrnsa8tKqo"
+    }
+   ]
+  },
+  {
+   "n": [
+    8
+   ],
+   "module": "gradients-optimization",
+   "title": "Vector, Matrix & Affine Autograd",
+   "sub": "Gradients, Jacobians, dense layers, and batched VJPs.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Calculus notes",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L3A.pdf"
+    },
+    {
+     "kind": "notes",
+     "label": "Autograd notes",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L3.pdf"
+    },
+    {
+     "kind": "slides",
+     "label": "Calculus slides",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L3A-presentation.pdf"
+    },
+    {
+     "kind": "slides",
+     "label": "Autograd slides",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L3-presentation.pdf"
+    },
+    {
+     "kind": "cheat",
+     "label": "Cheat sheet",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/S08-cheatsheet.pdf"
+    },
+    {
+     "kind": "short",
+     "label": "Backprop through layers: Jacobians to batches",
+     "href": "https://www.youtube.com/watch?v=HjxjfiUDoMM"
+    },
+    {
+     "kind": "notebook",
+     "label": "Colab notebook",
+     "href": "https://colab.research.google.com/github/nipunbatra/dl-teaching/blob/master/notebooks/L03/00_backprop_autograd_complete.ipynb"
+    }
+   ]
+  },
+  {
+   "n": [
+    9
+   ],
+   "module": "gradients-optimization",
+   "title": "Valid Outputs by Design & Learning-Rate Schedules",
+   "sub": "Constrained parameters, warmup, decay, and cosine.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Valid outputs notes",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L5B.pdf"
+    },
+    {
+     "kind": "notes",
+     "label": "LR schedule notes",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L5C.pdf"
+    },
+    {
+     "kind": "slides",
+     "label": "Valid outputs slides",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L5B-presentation.pdf"
+    },
+    {
+     "kind": "slides",
+     "label": "LR schedule slides",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L5C-presentation.pdf"
+    },
+    {
+     "kind": "cheat",
+     "label": "Cheat sheet",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/S09-cheatsheet.pdf"
+    },
+    {
+     "kind": "short",
+     "label": "Valid outputs by design: softplus to softmax",
+     "href": "https://www.youtube.com/watch?v=uX6uBg6iZ1Y"
+    },
+    {
+     "kind": "short",
+     "label": "Learning-rate schedules: warmup, decay, cosine",
+     "href": "https://www.youtube.com/watch?v=sdRB7dRrJxQ"
+    }
+   ]
+  },
+  {
+   "n": [
+    10
+   ],
+   "module": "generalization",
+   "title": "Generalization & Regularization",
+   "sub": "Learning curves, weight decay, early stopping, dropout, augmentation, Mixup, and label smoothing.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L7.pdf"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/L7-presentation.pdf"
+    },
+    {
+     "kind": "cheat",
+     "label": "Cheat sheet",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/S10-cheatsheet.pdf"
+    },
+    {
+     "kind": "short",
+     "label": "Overfitting, weight decay and early stopping",
+     "href": "https://www.youtube.com/watch?v=5KFtpC9h83U"
+    },
+    {
+     "kind": "short",
+     "label": "Dropout, augmentation, Mixup and label smoothing",
+     "href": "https://www.youtube.com/watch?v=vchXFxKOYyQ"
+    },
+    {
+     "kind": "notebook",
+     "label": "Learning curves",
+     "href": "https://colab.research.google.com/github/nipunbatra/dl-teaching/blob/master/notebooks/L07/01_overfitting_and_early_stopping.ipynb"
+    },
+    {
+     "kind": "notebook",
+     "label": "Dropout and regularization",
+     "href": "https://colab.research.google.com/github/nipunbatra/dl-teaching/blob/master/notebooks/L07/02_dropout_from_scratch.ipynb"
+    }
+   ]
+  },
+  {
+   "n": [
+    11
+   ],
+   "module": "attention-and-language",
+   "title": "From characters to next-token prediction",
+   "sub": "Tokenization, learned embeddings, a hidden-layer MLP, training, and generation.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/attention/part1.html"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/attention/part1.html?present"
+    },
+    {
+     "kind": "cheat",
+     "label": "Cheat sheet",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/P01-cheatsheet.pdf"
+    },
+    {
+     "kind": "recording",
+     "label": "Full recording",
+     "href": "https://www.youtube.com/watch?v=ZVi1CzLFmzk"
+    },
+    {
+     "kind": "short",
+     "label": "Next-token prediction from scratch",
+     "href": "https://www.youtube.com/watch?v=1qza_VPINVE"
+    }
+   ]
+  },
+  {
+   "n": [
+    12
+   ],
+   "module": "attention-and-language",
+   "title": "Self-attention, from first principles",
+   "sub": "",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/attention/attention.html"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/attention/attention.html?present"
+    },
+    {
+     "kind": "cheat",
+     "label": "Cheat sheet",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/P02-cheatsheet.pdf"
+    },
+    {
+     "kind": "recording",
+     "label": "Full recording",
+     "href": "https://www.youtube.com/watch?v=fRSLf13z6wo"
+    },
+    {
+     "kind": "short",
+     "label": "Why attention?",
+     "href": "https://www.youtube.com/watch?v=61n3ejzg_8A"
+    },
+    {
+     "kind": "short",
+     "label": "Query, key, value",
+     "href": "https://www.youtube.com/watch?v=rRTMW4XjXQo"
+    }
+   ]
+  },
+  {
+   "n": [
+    13
+   ],
+   "module": "attention-and-language",
+   "title": "Self-attention, continued",
+   "sub": "Embedding updates, next-token prediction, and positional encoding.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/attention/attention.html"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/attention/attention.html?present"
+    },
+    {
+     "kind": "cheat",
+     "label": "Cheat sheet",
+     "href": "https://nipunbatra.github.io/dl-teaching/slides-pdf/P02-cheatsheet.pdf"
+    },
+    {
+     "kind": "short",
+     "label": "From attention to prediction",
+     "href": "https://www.youtube.com/watch?v=ff0Ru6TyaDM"
+    },
+    {
+     "kind": "short",
+     "label": "Position and order",
+     "href": "https://www.youtube.com/watch?v=mckdFlOaszM"
+    }
+   ]
+  },
+  {
+   "n": [
+    14
+   ],
+   "module": "attention-and-language",
+   "title": "Self-attention and multi-head attention",
+   "sub": "",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Self-attention notes",
+     "href": "https://nipunbatra.github.io/attention/attention.html"
+    },
+    {
+     "kind": "notes",
+     "label": "Multi-head attention notes",
+     "href": "https://nipunbatra.github.io/attention/part3.html"
+    },
+    {
+     "kind": "slides",
+     "label": "Self-attention slides",
+     "href": "https://nipunbatra.github.io/attention/attention.html?present"
+    },
+    {
+     "kind": "slides",
+     "label": "Multi-head attention slides",
+     "href": "https://nipunbatra.github.io/attention/part3.html?present"
+    }
+   ]
+  },
+  {
+   "n": [
+    15
+   ],
+   "module": "attention-and-language",
+   "title": "From Attention to Applications",
+   "sub": "Encoder, decoder-only and encoder–decoder Transformers; token and sentence classification; causal self-attention and cross-attention.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/dl-teaching/interactives/from-attention-to-applications/"
+    },
+    {
+     "kind": "pdf",
+     "label": "PDF",
+     "href": "https://nipunbatra.github.io/dl-teaching/interactives/from-attention-to-applications/from-attention-to-applications.pdf"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/dl-teaching/interactives/from-attention-to-applications/?present#title"
+    },
+    {
+     "kind": "recording",
+     "label": "Full recording",
+     "href": "https://www.youtube.com/watch?v=sm2ZeDY8YDw"
+    }
+   ]
+  },
+  {
+   "n": [
+    16
+   ],
+   "module": "vision",
+   "title": "Vision Transformer for image classification",
+   "sub": "Patch embeddings, full attention, embedding updates and CLS readout; CNN comparisons and image-covering experiments.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/attention/vision1.html"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/attention/vision1.html?present"
+    },
+    {
+     "kind": "pdf",
+     "label": "PDF · 55 pp.",
+     "href": "https://nipunbatra.github.io/attention/pdf/vision1.pdf"
+    },
+    {
+     "kind": "recording",
+     "label": "Full recording",
+     "href": "https://www.youtube.com/watch?v=AuhrnX_x-i8"
+    }
+   ]
+  },
+  {
+   "n": [
+    17
+   ],
+   "module": "vision",
+   "title": "CLIP: From Fixed Labels to Language-Defined Vision",
+   "sub": "Applications, two encoders, a step-by-step contrastive-loss calculation, zero-shot classification and a full architecture summary.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/attention/clip/"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/attention/clip/?present#cover"
+    },
+    {
+     "kind": "pdf",
+     "label": "PDF · 168 pp.",
+     "href": "https://nipunbatra.github.io/attention/clip/clip.pdf"
+    },
+    {
+     "kind": "slides",
+     "label": "Addendum slides",
+     "href": "https://nipunbatra.github.io/attention/clip-addendum/?present#digup-demo"
+    },
+    {
+     "kind": "pdf",
+     "label": "Addendum PDF",
+     "href": "https://nipunbatra.github.io/attention/clip-addendum/clip-addendum.pdf"
+    },
+    {
+     "kind": "recording",
+     "label": "Full recording",
+     "href": "https://www.youtube.com/watch?v=W3WhuZczsNQ"
+    },
+    {
+     "kind": "notebook",
+     "label": "Applications Colab",
+     "href": "https://colab.research.google.com/github/nipunbatra/attention/blob/main/clip/notebooks/clip-applications.ipynb"
+    },
+    {
+     "kind": "lab",
+     "label": "EmbeddingGemma lab",
+     "href": "https://nipunbatra.github.io/attention/embeddinggemma/"
+    },
+    {
+     "kind": "lab",
+     "label": "Train a classifier",
+     "href": "https://nipunbatra.github.io/attention/embeddinggemma/#training"
+    }
+   ]
+  },
+  {
+   "n": [
+    18
+   ],
+   "module": "vision",
+   "title": "From CLIP to Vision-Language Models",
+   "sub": "Visual prefixes, cross-attention and learned summaries; architecture diagrams, code walkthroughs, training and generation.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/attention/from-clip-to-vlm/"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/attention/from-clip-to-vlm/?present#cover"
+    },
+    {
+     "kind": "pdf",
+     "label": "PDF · 178 pp.",
+     "href": "https://nipunbatra.github.io/attention/from-clip-to-vlm/from-clip-to-vlm.pdf"
+    },
+    {
+     "kind": "recording",
+     "label": "Full recording",
+     "href": "https://www.youtube.com/watch?v=S6X9_KWq_44"
+    },
+    {
+     "kind": "notebook",
+     "label": "Three connections Colab",
+     "href": "https://colab.research.google.com/github/nipunbatra/attention/blob/main/from-clip-to-vlm/notebooks/vlm-three-connections.ipynb"
+    }
+   ]
+  },
+  {
+   "n": [
+    19
+   ],
+   "module": "vision",
+   "title": "Vision-Language Models, Part 2",
+   "sub": "Cross-attention and learned visual summaries; tensor shapes, training and generation, multiple-image questions and practical embedding demos.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/attention/from-clip-to-vlm/"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/attention/from-clip-to-vlm/?present#cover"
+    },
+    {
+     "kind": "pdf",
+     "label": "PDF · 178 pp.",
+     "href": "https://nipunbatra.github.io/attention/from-clip-to-vlm/from-clip-to-vlm.pdf"
+    },
+    {
+     "kind": "recording",
+     "label": "Full recording",
+     "href": "https://www.youtube.com/watch?v=IIFrtT3_nIM"
+    },
+    {
+     "kind": "notebook",
+     "label": "Three connections Colab",
+     "href": "https://colab.research.google.com/github/nipunbatra/attention/blob/main/from-clip-to-vlm/notebooks/vlm-three-connections.ipynb"
+    }
+   ]
+  },
+  {
+   "n": [
+    20
+   ],
+   "module": "vision",
+   "title": "Concept Bottleneck Models: I",
+   "sub": "Interpretable-by-design prediction through named concepts; CUB examples, concept supervision, training schemes and interventions.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/cbm/notes.html"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/cbm/"
+    },
+    {
+     "kind": "pdf",
+     "label": "PDF · 262 pp.",
+     "href": "https://nipunbatra.github.io/cbm/concept-bottleneck-models.pdf"
+    },
+    {
+     "kind": "recording",
+     "label": "Full recording",
+     "href": "https://www.youtube.com/watch?v=4jjjS3M5vfs"
+    }
+   ]
+  },
+  {
+   "n": [
+    21
+   ],
+   "module": "vision",
+   "title": "Concept Bottleneck Models: II",
+   "sub": "Concept sufficiency, concept embedding models, post-hoc bottlenecks and classification by description; supervision costs, evaluation and failure modes.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/cbm/notes.html"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/cbm/"
+    },
+    {
+     "kind": "pdf",
+     "label": "PDF · 262 pp.",
+     "href": "https://nipunbatra.github.io/cbm/concept-bottleneck-models.pdf"
+    },
+    {
+     "kind": "recording",
+     "label": "Full recording",
+     "href": "https://www.youtube.com/watch?v=45DnqI_Fm9U"
+    }
+   ]
+  },
+  {
+   "n": [
+    22
+   ],
+   "module": "vision",
+   "title": "Learning ViTs with AI Tools",
+   "sub": "Socratic live coding of a Vision Transformer in PyTorch: using AI tools to understand patches, attention, tensor shapes and MNIST training.",
+   "links": [
+    {
+     "kind": "recording",
+     "label": "Full recording",
+     "href": "https://www.youtube.com/watch?v=hHZIIKiOOr8"
+    }
+   ]
+  },
+  {
+   "n": [
+    23,
+    24
+   ],
+   "module": "generative",
+   "title": "KL Divergence and Variational Inference",
+   "sub": "Bayes for a tiny neural network and its intractable evidence; surprise, entropy, codes, cross-entropy and KL; classification loss and knowledge distillation as KL; Monte Carlo and the reparameterisation trick; the ELBO step by step; VI for the network.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/generative/lectures/lecture1/?reading"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/generative/lectures/lecture1/"
+    },
+    {
+     "kind": "pdf",
+     "label": "PDF · 154 pp.",
+     "href": "https://nipunbatra.github.io/generative/lectures/lecture1/exports/completed.pdf"
+    },
+    {
+     "kind": "notebook",
+     "label": "Notebook",
+     "href": "https://colab.research.google.com/github/nipunbatra/generative/blob/main/lectures/lecture1/lecture1-variational-inference.ipynb"
+    }
+   ]
+  },
+  {
+   "n": [
+    25
+   ],
+   "module": "generative",
+   "title": "Autoencoder and VAE",
+   "sub": "What generative models are for, and what x, y, p(x) and p(y | x) mean; an autoencoder on one handwritten 3, and why it cannot generate; three fixes that turn it into a VAE; and the VAE’s loss, reconstruction plus KL, derived from the ELBO of Lectures 23–24 by variational inference.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/generative/lectures/lecture5/?reading"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/generative/lectures/lecture5/"
+    },
+    {
+     "kind": "pdf",
+     "label": "PDF · 85 pp.",
+     "href": "https://nipunbatra.github.io/generative/lectures/lecture5/exports/completed.pdf"
+    },
+    {
+     "kind": "notebook",
+     "label": "Notebook",
+     "href": "https://colab.research.google.com/github/nipunbatra/generative/blob/main/lectures/lecture5/lecture5-autoencoders-vae.ipynb"
+    }
+   ]
+  },
+  {
+   "n": [
+    26
+   ],
+   "module": "detection",
+   "title": "Object Detection: From One Label to a Set of Objects",
+   "sub": "Spatial candidates, target assignment, worked losses, decoding, NMS, evaluation and DETR-style set prediction.",
+   "links": [
+    {
+     "kind": "notes",
+     "label": "Notes",
+     "href": "https://nipunbatra.github.io/object-detection/?reading"
+    },
+    {
+     "kind": "slides",
+     "label": "Slides",
+     "href": "https://nipunbatra.github.io/object-detection/#title"
+    },
+    {
+     "kind": "pdf",
+     "label": "PDF · 154 pp.",
+     "href": "https://nipunbatra.github.io/object-detection/exports/object-detection.pdf"
+    },
+    {
+     "kind": "lab",
+     "label": "Live NMS figure: score and IoU thresholds",
+     "href": "https://nipunbatra.github.io/object-detection/#nms-play/1"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,777 @@
+{
+  "id": "dl-summary",
+  "number": 27,
+  "title": "The course in one lecture",
+  "series": "ES 667 Deep Learning",
+  "subtitle": "Twenty-six lectures, one recipe",
+  "minutes": 90,
+  "sections": [
+    {
+      "id": "map",
+      "title": "Lecture map",
+      "minutes": 7
+    },
+    {
+      "id": "found",
+      "title": "Part 1 · Foundations",
+      "minutes": 11
+    },
+    {
+      "id": "grad",
+      "title": "Part 2 · Gradients and optimization",
+      "minutes": 12
+    },
+    {
+      "id": "gen",
+      "title": "Part 3 · Generalization",
+      "minutes": 9
+    },
+    {
+      "id": "attn",
+      "title": "Part 4 · Attention and language",
+      "minutes": 12
+    },
+    {
+      "id": "vision",
+      "title": "Part 5 · Vision and language",
+      "minutes": 13
+    },
+    {
+      "id": "genm",
+      "title": "Part 6 · Generative modelling",
+      "minutes": 12
+    },
+    {
+      "id": "det",
+      "title": "Part 7 · Object detection",
+      "minutes": 8
+    },
+    {
+      "id": "wrap",
+      "title": "The whole course",
+      "minutes": 6
+    },
+    {
+      "id": "optional",
+      "title": "Appendix · More depth",
+      "minutes": 0
+    }
+  ],
+  "coreSlides": 73,
+  "optionalSlides": 16,
+  "totalStates": 201,
+  "slides": [
+    {
+      "id": "title",
+      "title": "The course in one lecture",
+      "section": "map",
+      "chapter": "",
+      "builds": 1,
+      "optional": false
+    },
+    {
+      "id": "ten-models",
+      "title": "Ten models, built in twenty-six lectures",
+      "section": "map",
+      "chapter": "",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "recipe",
+      "title": "The recipe, on one example",
+      "section": "map",
+      "chapter": "",
+      "builds": 6,
+      "optional": false
+    },
+    {
+      "id": "recipe-loop",
+      "title": "The recipe, repeated",
+      "section": "map",
+      "chapter": "",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "recipe-card",
+      "title": "The recipe as a card, and as code",
+      "section": "map",
+      "chapter": "",
+      "builds": 6,
+      "optional": false
+    },
+    {
+      "id": "route",
+      "title": "The route for today",
+      "section": "map",
+      "chapter": "",
+      "builds": 1,
+      "optional": false
+    },
+    {
+      "id": "part-1",
+      "title": "Part 1 · Where the loss comes from",
+      "section": "found",
+      "chapter": "",
+      "builds": 1,
+      "optional": false
+    },
+    {
+      "id": "nll-coin",
+      "title": "The loss is a negative log-likelihood",
+      "section": "found",
+      "chapter": "1.1 Loss: from a likelihood",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "nll-loss",
+      "title": "Cross-entropy is the negative log of the right class",
+      "section": "found",
+      "chapter": "1.2 Loss: cross-entropy",
+      "builds": 4,
+      "optional": false
+    },
+    {
+      "id": "dist-loss",
+      "title": "Each kind of target picks a distribution, and a loss",
+      "section": "found",
+      "chapter": "1.3 Output: a distribution",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "map-prior",
+      "title": "A Gaussian prior is an L2 penalty",
+      "section": "found",
+      "chapter": "1.4 Loss: a prior adds a penalty",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "mlp-xor",
+      "title": "Two ReLU units solve XOR",
+      "section": "found",
+      "chapter": "1.5 Model: layers and ReLUs",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "p1-hinges",
+      "title": "Enough hinges fit any curve",
+      "section": "found",
+      "chapter": "1.5 Model: layers and ReLUs",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "check-1",
+      "title": "Check: a loss of 2.30 at the first step",
+      "section": "found",
+      "chapter": "",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "recap-1",
+      "title": "Part 1 in one slide",
+      "section": "found",
+      "chapter": "",
+      "builds": 1,
+      "optional": false
+    },
+    {
+      "id": "part-2",
+      "title": "Part 2 · How the weights move",
+      "section": "grad",
+      "chapter": "",
+      "builds": 1,
+      "optional": false
+    },
+    {
+      "id": "bp-graph",
+      "title": "Backprop, one node at a time",
+      "section": "grad",
+      "chapter": "2.1 Update: the gradient by backprop",
+      "builds": 5,
+      "optional": false
+    },
+    {
+      "id": "bp-update",
+      "title": "One step, in PyTorch",
+      "section": "grad",
+      "chapter": "2.2 Update: one step",
+      "builds": 4,
+      "optional": false
+    },
+    {
+      "id": "sgd",
+      "title": "A gradient from part of the data",
+      "section": "grad",
+      "chapter": "2.3 Update: a noisy gradient",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "opt-play",
+      "title": "Same ravine, four optimizers",
+      "section": "grad",
+      "chapter": "2.4 Update: momentum and Adam",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "vjp",
+      "title": "Backprop through a layer multiplies by Jᵀ",
+      "section": "grad",
+      "chapter": "2.5 Update: autograd on vectors",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "logits",
+      "title": "Softmax overflows; the loss takes logits",
+      "section": "grad",
+      "chapter": "2.6 Output: keep the logits",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "schedule",
+      "title": "Large steps early, small steps late",
+      "section": "grad",
+      "chapter": "2.7 Update: a schedule for the step size",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "check-2",
+      "title": "Check: the loss went up",
+      "section": "grad",
+      "chapter": "",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "recap-2",
+      "title": "Part 2 in one slide",
+      "section": "grad",
+      "chapter": "",
+      "builds": 1,
+      "optional": false
+    },
+    {
+      "id": "part-3",
+      "title": "Part 3 · Doing well on data you have not seen",
+      "section": "gen",
+      "chapter": "",
+      "builds": 1,
+      "optional": false
+    },
+    {
+      "id": "overfit",
+      "title": "Ten points, ten weights",
+      "section": "gen",
+      "chapter": "3.1 At test time: the gap",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "reg-play",
+      "title": "Make large weights cost something",
+      "section": "gen",
+      "chapter": "3.2 Loss: a penalty on the weights",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "regs",
+      "title": "Four ways to prefer a simpler fit",
+      "section": "gen",
+      "chapter": "3.3 Data and Loss: four regularisers",
+      "builds": 4,
+      "optional": false
+    },
+    {
+      "id": "regs-cifar",
+      "title": "One change at a time, on CIFAR-10",
+      "section": "gen",
+      "chapter": "3.4 At test time: what helped",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "splits",
+      "title": "Train fits, validation chooses, test reports",
+      "section": "gen",
+      "chapter": "3.5 Data: three splits",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "check-3",
+      "title": "Check: the curves part ways",
+      "section": "gen",
+      "chapter": "3.5 Data: three splits",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "recap-3",
+      "title": "Part 3 in one slide",
+      "section": "gen",
+      "chapter": "",
+      "builds": 1,
+      "optional": false
+    },
+    {
+      "id": "part-4",
+      "title": "Part 4 · Predicting the next token",
+      "section": "attn",
+      "chapter": "",
+      "builds": 1,
+      "optional": false
+    },
+    {
+      "id": "next-token",
+      "title": "One name, six guesses, a loss for each",
+      "section": "attn",
+      "chapter": "4.1 Data and Output: the next token",
+      "builds": 4,
+      "optional": false
+    },
+    {
+      "id": "attn-bank",
+      "title": "One word, two sentences",
+      "section": "attn",
+      "chapter": "4.2 Model: attention",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "attn-eq",
+      "title": "One attention layer, a piece per click",
+      "section": "attn",
+      "chapter": "4.3 Model: one attention layer",
+      "builds": 5,
+      "optional": false
+    },
+    {
+      "id": "attn-ppl",
+      "title": "Perplexity on stories the models never saw",
+      "section": "attn",
+      "chapter": "4.4 At test time: perplexity",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "families",
+      "title": "One block, three families",
+      "section": "attn",
+      "chapter": "4.5 Model: three families",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "check-4",
+      "title": "Check: the forgotten mask",
+      "section": "attn",
+      "chapter": "",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "recap-4",
+      "title": "Part 4 in one slide",
+      "section": "attn",
+      "chapter": "",
+      "builds": 1,
+      "optional": false
+    },
+    {
+      "id": "part-5",
+      "title": "Part 5 · Images as tokens, labels as language",
+      "section": "vision",
+      "chapter": "",
+      "builds": 1,
+      "optional": false
+    },
+    {
+      "id": "vit",
+      "title": "A photo becomes a sequence of patch tokens",
+      "section": "vision",
+      "chapter": "5.1 Data and Model: patches as tokens",
+      "builds": 4,
+      "optional": false
+    },
+    {
+      "id": "clip",
+      "title": "CLIP: a softmax along each row of the batch",
+      "section": "vision",
+      "chapter": "5.2 Loss: match photos to captions",
+      "builds": 4,
+      "optional": false
+    },
+    {
+      "id": "clip-use",
+      "title": "At test time, each class is written as a caption",
+      "section": "vision",
+      "chapter": "5.3 At test time: classes written as captions",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "vlm",
+      "title": "A VLM puts the image in front of a language model",
+      "section": "vision",
+      "chapter": "5.4 Model: an image in front of a language model",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "cbm",
+      "title": "A concept bottleneck: the class is read from concepts alone",
+      "section": "vision",
+      "chapter": "5.5 Output: concepts you can correct",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "p5-cub",
+      "title": "On real birds: accuracy, then accuracy after corrections",
+      "section": "vision",
+      "chapter": "5.5 Output: concepts you can correct",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "check-5",
+      "title": "Check: which of these need class labels?",
+      "section": "vision",
+      "chapter": "",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "recap-5",
+      "title": "Part 5 in one slide",
+      "section": "vision",
+      "chapter": "",
+      "builds": 1,
+      "optional": false
+    },
+    {
+      "id": "part-6",
+      "title": "Part 6 · Learning a distribution",
+      "section": "genm",
+      "chapter": "",
+      "builds": 1,
+      "optional": false
+    },
+    {
+      "id": "kl",
+      "title": "The KL divergence: the extra cost of the wrong code",
+      "section": "genm",
+      "chapter": "6.1 Loss: KL divergence",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "elbo",
+      "title": "The ELBO: a lower bound we can raise",
+      "section": "genm",
+      "chapter": "6.2 Loss: the ELBO",
+      "builds": 4,
+      "optional": false
+    },
+    {
+      "id": "reparam",
+      "title": "Gradients through a sample: θ = μ + σε",
+      "section": "genm",
+      "chapter": "6.3 Update: gradients through a sample",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "bnn",
+      "title": "A Bayesian network: predictions with error bars",
+      "section": "genm",
+      "chapter": "6.4 At test time: uncertainty",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "ae-vae",
+      "title": "An autoencoder, and the VAE that grows out of it",
+      "section": "genm",
+      "chapter": "6.5 Model: encoder, code, decoder",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "vae-loss",
+      "title": "The VAE’s loss: reconstruction plus KL",
+      "section": "genm",
+      "chapter": "6.6 Loss: reconstruction plus KL",
+      "builds": 5,
+      "optional": false
+    },
+    {
+      "id": "check-6",
+      "title": "Check: the two ends of the β sweep",
+      "section": "genm",
+      "chapter": "",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "recap-6",
+      "title": "Part 6 in one slide",
+      "section": "genm",
+      "chapter": "",
+      "builds": 1,
+      "optional": false
+    },
+    {
+      "id": "part-7",
+      "title": "Part 7 · From one label to a list of objects",
+      "section": "det",
+      "chapter": "",
+      "builds": 1,
+      "optional": false
+    },
+    {
+      "id": "det-list",
+      "title": "From one label to a list of boxes",
+      "section": "det",
+      "chapter": "7.1 Output: a list of boxes",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "iou",
+      "title": "Do two boxes agree? Intersection over union",
+      "section": "det",
+      "chapter": "7.2 At test time: do two boxes agree?",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "det-loss",
+      "title": "The loss, one grid cell at a time",
+      "section": "det",
+      "chapter": "7.3 Loss: one target per grid cell",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "nms",
+      "title": "Keep the confident boxes, then drop the duplicates",
+      "section": "det",
+      "chapter": "7.4 At test time: threshold, then NMS",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "det-eval",
+      "title": "How good is the list? Precision, recall and AP",
+      "section": "det",
+      "chapter": "7.5 At test time: precision, recall, AP",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "check-7",
+      "title": "Check: two boxes on one dog",
+      "section": "det",
+      "chapter": "",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "recap-7",
+      "title": "Part 7 in one slide",
+      "section": "det",
+      "chapter": "",
+      "builds": 1,
+      "optional": false
+    },
+    {
+      "id": "p7-code",
+      "title": "IoU and NMS in PyTorch",
+      "section": "optional",
+      "chapter": "",
+      "builds": 1,
+      "optional": true
+    },
+    {
+      "id": "threads-ce",
+      "title": "The same loss, five times",
+      "section": "wrap",
+      "chapter": "",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "threads-attn",
+      "title": "The same block, in four models",
+      "section": "wrap",
+      "chapter": "",
+      "builds": 4,
+      "optional": false
+    },
+    {
+      "id": "parts-rows",
+      "title": "Seven parts, six rows",
+      "section": "wrap",
+      "chapter": "",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "master",
+      "title": "Ten models, one card each",
+      "section": "wrap",
+      "chapter": "",
+      "builds": 2,
+      "optional": false
+    },
+    {
+      "id": "pipeline",
+      "title": "The recipe, for a problem of your own",
+      "section": "wrap",
+      "chapter": "",
+      "builds": 3,
+      "optional": false
+    },
+    {
+      "id": "summary",
+      "title": "The course on one slide",
+      "section": "wrap",
+      "chapter": "",
+      "builds": 1,
+      "optional": false
+    },
+    {
+      "id": "p8-card-mlp",
+      "title": "Recipe card: MLP classifier",
+      "section": "optional",
+      "chapter": "",
+      "builds": 1,
+      "optional": true
+    },
+    {
+      "id": "p8-card-charlm",
+      "title": "Recipe card: character language model",
+      "section": "optional",
+      "chapter": "",
+      "builds": 1,
+      "optional": true
+    },
+    {
+      "id": "p8-card-gpt",
+      "title": "Recipe card: transformer language model",
+      "section": "optional",
+      "chapter": "",
+      "builds": 1,
+      "optional": true
+    },
+    {
+      "id": "p8-card-vit",
+      "title": "Recipe card: Vision Transformer",
+      "section": "optional",
+      "chapter": "",
+      "builds": 1,
+      "optional": true
+    },
+    {
+      "id": "p8-card-clip",
+      "title": "Recipe card: CLIP",
+      "section": "optional",
+      "chapter": "",
+      "builds": 1,
+      "optional": true
+    },
+    {
+      "id": "p8-card-vlm",
+      "title": "Recipe card: vision-language model",
+      "section": "optional",
+      "chapter": "",
+      "builds": 1,
+      "optional": true
+    },
+    {
+      "id": "p8-card-cbm",
+      "title": "Recipe card: concept bottleneck model",
+      "section": "optional",
+      "chapter": "",
+      "builds": 1,
+      "optional": true
+    },
+    {
+      "id": "p8-card-bnn",
+      "title": "Recipe card: Bayesian neural network",
+      "section": "optional",
+      "chapter": "",
+      "builds": 1,
+      "optional": true
+    },
+    {
+      "id": "p8-card-vae",
+      "title": "Recipe card: variational autoencoder",
+      "section": "optional",
+      "chapter": "",
+      "builds": 1,
+      "optional": true
+    },
+    {
+      "id": "p8-card-det",
+      "title": "Recipe card: object detector",
+      "section": "optional",
+      "chapter": "",
+      "builds": 1,
+      "optional": true
+    },
+    {
+      "id": "p8-lectures-1",
+      "title": "Lectures 1 to 5, with their material",
+      "section": "optional",
+      "chapter": "",
+      "builds": 1,
+      "optional": true
+    },
+    {
+      "id": "p8-lectures-2",
+      "title": "Lectures 6 to 10, with their material",
+      "section": "optional",
+      "chapter": "",
+      "builds": 1,
+      "optional": true
+    },
+    {
+      "id": "p8-lectures-3",
+      "title": "Lectures 11 to 15, with their material",
+      "section": "optional",
+      "chapter": "",
+      "builds": 1,
+      "optional": true
+    },
+    {
+      "id": "p8-lectures-4",
+      "title": "Lectures 16 to 20, with their material",
+      "section": "optional",
+      "chapter": "",
+      "builds": 1,
+      "optional": true
+    },
+    {
+      "id": "p8-lectures-5",
+      "title": "Lectures 21 to 26, with their material",
+      "section": "optional",
+      "chapter": "",
+      "builds": 1,
+      "optional": true
+    }
+  ]
+}
